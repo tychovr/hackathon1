@@ -3,9 +3,10 @@ import { Form, Button, Container, Alert } from "react-bootstrap";
 import db from "../../connection"; // Make sure to import the Firestore instance correctly
 
 const ManageSubscription = () => {
-  const [naam, setNaam] = useState("");
-  const [email, setEmail] = useState("");
-  const [abonnementType, setAbonnementType] = useState("Basis");
+  const [DateEnd, setDateEnd] = useState("");
+  const [DateStart, setDateStart] = useState("");
+  const [Price, setPrice] = useState("Basis");
+  const [Type, setType] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -16,9 +17,10 @@ const ManageSubscription = () => {
 
     try {
       await db.collection("abonnementen").add({
-        naam,
-        email,
-        abonnementType,
+        DateEnd,
+        DateStart,
+        Price,
+        Type
       });
 
       setIsSuccess(true);
@@ -39,8 +41,8 @@ const ManageSubscription = () => {
           <Form.Control
             type="text"
             placeholder="Voer uw naam in"
-            value={naam}
-            onChange={(e) => setNaam(e.target.value)}
+            value={DateEnd}
+            onChange={(e) => setDateEnd(e.target.value)}
           />
         </Form.Group>
 
@@ -49,20 +51,32 @@ const ManageSubscription = () => {
           <Form.Control
             type="email"
             placeholder="Voer uw e-mailadres in"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={DateStart}
+            onChange={(e) => setDateStart(e.target.value)}
           />
+        </Form.Group>
+
+        <Form.Group controlId="abonnementType">
+          <Form.Label>Prijs</Form.Label>
+          <Form.Control
+            as="text"
+            value={Price}
+            onChange={(e) => setPrice(e.target.value)}
+            disabled
+          >
+          </Form.Control>
         </Form.Group>
 
         <Form.Group controlId="abonnementType">
           <Form.Label>Abonnementstype</Form.Label>
           <Form.Control
             as="select"
-            value={abonnementType}
-            onChange={(e) => setAbonnementType(e.target.value)}
+            value={Type}
+            onChange={(e) => setType(e.target.value)}
           >
             <option value="Basis">Basis</option>
             <option value="Premium">Premium</option>
+            <option value="Deluxe">Deluxe</option>
           </Form.Control>
         </Form.Group>
 
