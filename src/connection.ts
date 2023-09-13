@@ -12,7 +12,7 @@ const firebaseConfig = {
 };
 
 const firebaseApp = initializeApp(firebaseConfig)
-const db = getFirestore();
+const db = getFirestore(firebaseApp);
 
 const auth = getAuth(firebaseApp)
 
