@@ -1,11 +1,11 @@
-import React, { useState, FormEvent } from "react";
+import { useState, FormEvent } from "react";
 import { Container, Typography, TextField, Button, Snackbar } from "@mui/material";
-import db from "../../connection"; // Make sure to import the Firestore instance correctly
+// import db from "../../connection"; // Make sure to import the Firestore instance correctly
 
 const ManageSubscription = () => {
   const [DateEnd, setDateEnd] = useState("");
   const [DateStart, setDateStart] = useState("");
-  const [Price, setPrice] = useState(0);
+  const [Price, setPrice] = useState("");
   const [Type, setType] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -17,12 +17,12 @@ const ManageSubscription = () => {
     setIsLoading(true);
 
     try {
-      await db.collection("abonnementen").add({
-        DateEnd,
-        DateStart,
-        Price,
-        Type
-      });
+      // await db.collection("abonnementen").add({
+      //   DateEnd,
+      //   DateStart,
+      //   Price,
+      //   Type
+      // });
 
       setIsSuccess(true);
       setOpenSnackbar(true);
@@ -54,7 +54,6 @@ const ManageSubscription = () => {
           value={DateEnd}
           onChange={(e) => setDateEnd(e.target.value)}
         />
-        <DatePicker label="Basic date picker" />
 
         <TextField
           fullWidth
@@ -74,6 +73,7 @@ const ManageSubscription = () => {
           margin="normal"
           type="text"
           value={Price}
+          onChange={(e) => setPrice(e.target.value)}
           disabled
         />
 
